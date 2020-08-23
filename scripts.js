@@ -7,6 +7,9 @@ let takeOff = null;
 let status = null;
 let shuttleBkgrnd = null;
 let altitude = null;
+let startingPoint = null;
+let image = null;
+let altNum = 0;
 
 function init () {
     abortMission = document.getElementById("missionAbort");
@@ -15,23 +18,18 @@ function init () {
     status = document.getElementById("flightStatus");
     shuttleBkgrnd = document.getElementById("shuttleBackground");
     altitude = document.getElementById("spaceShuttleHeight");
-    let altNum = Number(altitude.innerHTML);
-    let image = document.querySelector("img");
-    
-    
-    // landing = document.querySelector("p");
-
+    image = document.querySelector("img");
+    let move = null;
+     
     takeOff.addEventListener("click", function (event) {
       let response = window.confirm("Confirm that the shuttle is ready for takeoff.");
       if (response) {
           status.innerHTML = "Shuttle in flight.";
           shuttleBkgrnd.style.backgroundColor = "blue";
           altitude.innerHTML = altNum + 10000;
- 
-      } else {
+       } else {
           console.log(false)
       }
-    
     }); 
 
     landing.addEventListener("click", function (event) {
@@ -51,51 +49,37 @@ function init () {
         } else {
             console.log(false)
         }
-      
-      });
- 
+     });
+
+    image.style.position ="relative";
+    
+    document.getElementById("up").onclick = function() {
+        startingPoint += -10;
+        move = String(startingPoint) + "px"
+        image.style.top = move;
+        altNum = Number(altitude.innerHTML)
+        altitude.innerHTML = altNum + 10000;
+    };
+
+    document.getElementById("down").onclick = function() {
+        startingPoint += -10;
+        move = String(startingPoint) + "px"
+        image.style.bottom = move;
+        altNum = Number(altitude.innerHTML)
+        altitude.innerHTML = altNum - 10000;
+    };
+    
+    document.getElementById("left").onclick = function() {
+        startingPoint += 10;
+        move = String(startingPoint) + "px"
+        image.style.left = move;
+    };
+
+    document.getElementById("right").onclick = function() {
+        startingPoint += 10;
+        move = String(startingPoint) + "px"
+        image.style.right = move;
+    };
 }
-
-let startingPoint = null;
-
-function moveImgUp() {
-    let image = document.querySelector("img");
-    image.style.position ="relative";
-    startingPoint += -10
-    let move = String(startingPoint) + "px"
-    image.style.top = move;
-    altitude = document.getElementById("spaceShuttleHeight");
-    let altNum = Number(altitude.innerHTML);
-    altitude.innerHTML = altNum + 10000;
- }
-
- function moveImgDown() {
-    let image = document.querySelector("img");
-    image.style.position ="relative";
-    startingPoint += -10
-    let move = String(startingPoint) + "px"
-    image.style.bottom = move;
-    altitude = document.getElementById("spaceShuttleHeight");
-    let altNum = Number(altitude.innerHTML);
-    altitude.innerHTML = altNum - 10000;
- }
-
- function moveImgLeft() {
-    let image = document.querySelector("img");
-    image.style.position ="relative";
-    startingPoint += 10
-    let move = String(startingPoint) + "px"
-    image.style.left = move;
-
- }
-
- function moveImgRight() {
-    let image = document.querySelector("img");
-    image.style.position ="relative";
-    startingPoint += 10
-    let move = String(startingPoint) + "px"
-    image.style.right = move;
-
- }
 
 window.onload = init;
