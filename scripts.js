@@ -51,18 +51,20 @@ function init () {
         }
      });
 
-    image.style.position ="relative";
+    image.style.position ="absolute";
+    image.style.left ="0px";
+    image.style.bottom ="0px";
     
     document.getElementById("up").onclick = function() {
-        startingPoint += -10;
+        startingPoint += 10;
         move = String(startingPoint) + "px"
-        image.style.top = move;
+        image.style.bottom = move;
         altNum = Number(altitude.innerHTML)
         altitude.innerHTML = altNum + 10000;
     };
 
     document.getElementById("down").onclick = function() {
-        startingPoint += -10;
+        startingPoint -= 10;
         move = String(startingPoint) + "px"
         image.style.bottom = move;
         altNum = Number(altitude.innerHTML)
@@ -76,9 +78,9 @@ function init () {
     };
 
     document.getElementById("right").onclick = function() {
-        startingPoint += 10;
+        startingPoint -= 10;
         move = String(startingPoint) + "px"
-        image.style.right = move;
+        image.style.left = move;
     };
 }
 
